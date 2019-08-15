@@ -54,6 +54,22 @@ COPY qt-noninteractive.qs /qt-noninteractive.qs
 RUN ./qt-opensource-linux-x64-${QT_VERSION_B}.run --script qt-noninteractive.qs  -platform minimal
 
 
+ENV DEP_DEV=/opt/eesepDependencies \
+    DEP_BUILD=/tmp/eesepDependencies_build \
+    DEP_INSTALL=/opt/
+
+COPY CMakeLists.txt "${DEP_DEV}"/CMakeLists.txt
+
+WORKDIR "${DEP_BUILD}"
+RUN cmake "${DEP_DEV}" -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX="${DEP_INSTALL}" \
+        -DEESEP_BUILD_ZLIB:BOOL=ON \
+        -DEESEP_BUILD_OPENCV:BOOL=ON \
+        -DEESEP_BUILD_ALICEVISION:BOOL=OFF
+
+RUN make
+
+
 #
 #ENV SVD3_DEV=/opt/svd3_git \
 #    SVD3_BUILD=/tmp/svd3_build \

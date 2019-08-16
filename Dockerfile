@@ -47,11 +47,11 @@ RUN apt-get install -y --no-install-recommends \
 
 ENV QT_VERSION_A=5.12
 ENV QT_VERSION_B=5.12.4
-ENV QT_VERSION_SCRIPT=512`4
+ENV QT_VERSION_SCRIPT=5124
 RUN wget https://download.qt.io/archive/qt/${QT_VERSION_A}/${QT_VERSION_B}/qt-opensource-linux-x64-${QT_VERSION_B}.run
 RUN chmod +x qt-opensource-linux-x64-${QT_VERSION_B}.run
 COPY qt-noninteractive.qs /qt-noninteractive.qs
-RUN ./qt-opensource-linux-x64-${QT_VERSION_B}.run --script qt-noninteractive.qs  -platform minimal
+RUN ./qt-opensource-linux-x64-${QT_VERSION_B}.run --script qt-noninteractive.qs  --platform minimal
 
 
 ENV DEP_DEV=/opt/eesepDependencies \
@@ -67,7 +67,7 @@ RUN cmake "${DEP_DEV}" -DCMAKE_BUILD_TYPE=Release \
         -DEESEP_BUILD_OPENCV:BOOL=ON \
         -DEESEP_BUILD_ALICEVISION:BOOL=OFF
 
-RUN make
+#RUN make VERBOSE=1
 
 
 #

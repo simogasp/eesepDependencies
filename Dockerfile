@@ -44,14 +44,15 @@ RUN apt-get install -y --no-install-recommends \
 
 # rm -rf /var/lib/apt/lists/*
 
-
+WORKDIR /tmp/qt
 ENV QT_VERSION_A=5.12
 ENV QT_VERSION_B=5.12.4
 ENV QT_VERSION_SCRIPT=5124
-RUN wget https://download.qt.io/archive/qt/${QT_VERSION_A}/${QT_VERSION_B}/qt-opensource-linux-x64-${QT_VERSION_B}.run
-RUN chmod +x qt-opensource-linux-x64-${QT_VERSION_B}.run
-COPY qt-noninteractive.qs /qt-noninteractive.qs
-RUN ./qt-opensource-linux-x64-${QT_VERSION_B}.run --script qt-noninteractive.qs  --platform minimal
+COPY qt-noninteractive.qs /tmp/qt/
+RUN wget https://download.qt.io/archive/qt/${QT_VERSION_A}/${QT_VERSION_B}/qt-opensource-linux-x64-${QT_VERSION_B}.run && \
+    chmod +x qt-opensource-linux-x64-${QT_VERSION_B}.run && \
+    ./qt-opensource-linux-x64-${QT_VERSION_B}.run --script qt-noninteractive.qs  --platform minimal && \
+    rm ./qt-opensource-linux-x64-${QT_VERSION_B}.run
 
 
 ENV DEP_DEV=/opt/eesepDependencies \
@@ -62,7 +63,7 @@ COPY CMakeLists.txt "${DEP_DEV}"/CMakeLists.txt
 
 WORKDIR "${DEP_BUILD}"
 RUN cmake "${DEP_DEV}" -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_PREFIX="${DEP_INSTALL}" \
+        -DCMAKE_INSTALL_PREFIX:PATH="${DEP_INSTALL}" \
         -DEESEP_BUILD_ZLIB:BOOL=ON \
         -DEESEP_BUILD_OPENCV:BOOL=ON \
         -DEESEP_BUILD_ALICEVISION:BOOL=OFF

@@ -159,7 +159,7 @@ if(EESEP_BUILD_BOOST)
     # Add Boost
     set(BOOST_TARGET boost)
     ExternalProject_Add(${BOOST_TARGET}
-            URL https://sourceforge.net/projects/boost/files/boost/1.70.0/boost_1_70_0.tar.bz2
+            URL http://sourceforge.net/projects/boost/files/boost/1.66.0/boost_1_66_0.tar.bz2
 	    # https://github.com/alicevision/AliceVisionDependencies/releases/download/boost-src.1.61.0/boost_1_61_0.tar.gz
             #    http://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.tar.bz2
             #    https://dl.bintray.com/boostorg/release/1.61.0/source/boost_1_61_0.tar.gz

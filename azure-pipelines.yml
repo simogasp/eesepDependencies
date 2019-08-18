@@ -5,7 +5,7 @@ resources:
   - repo: self
 
 variables:
-  tag: latest
+  tag: ubuntu18.04cuda9.2
   dockerId: simogasp  # your Docker ID for Docker Hub
   imageName: eesep-dependencies  # the name of the image you want to publish
 
@@ -27,7 +27,7 @@ stages:
         displayName: Build
         inputs:
          command: build
-         arguments: --build-arg NPROC=2
+         #arguments: --build-arg NPROC=2
          repository: $(dockerId)/$(imageName)
          tags: |
            $(tag)

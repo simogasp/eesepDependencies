@@ -15,6 +15,7 @@ stages:
     jobs:
     - job: Build
       displayName: Build
+      timeoutInMinutes: 0        
       pool:
         vmImage: 'ubuntu-latest'
       steps:

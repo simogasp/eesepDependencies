@@ -19,8 +19,8 @@ LABEL maintainer="simone.gasparini@gmail.com"
 
 # Install all compilation tools
 RUN apt-get clean && \
-    apt-get update
-RUN apt-get install -y --no-install-recommends \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
         build-essential \
         cmake \
         git \
@@ -42,7 +42,7 @@ RUN apt-get install -y --no-install-recommends \
         libgtk2.0-dev \
         gfortran
 
-# rm -rf /var/lib/apt/lists/*
+RUN rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp/qt
 ENV QT_VERSION_A=5.12
@@ -70,6 +70,7 @@ RUN cmake "${DEP_DEV}" -DCMAKE_BUILD_TYPE=Release \
 
 RUN make -j${NPROC} VERBOSE=1
 
+RUN rm -rf "${DEP_BUILD}"
 
 
 #

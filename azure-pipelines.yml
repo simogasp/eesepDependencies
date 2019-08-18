@@ -24,10 +24,15 @@ stages:
           command: login
           containerRegistry: dockerHub
       - task: Docker@2
-        displayName: Build and Push
+        displayName: Build
         inputs:
-         command: buildAndPush
+         command: build
          arguments: NPROC=2
          repository: $(dockerId)/$(imageName)
          tags: |
            $(tag)
+      - task: Docker@2
+        displayName: Push
+        inputs:
+         command: push
+         repository: $(dockerId)/$(imageName)

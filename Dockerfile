@@ -30,6 +30,7 @@ RUN apt-get clean && \
         libtool \
         nasm \
         automake \
+        libssl-dev \
         libgmp-dev \
         libmpfr-dev \
         libbz2-dev  \
@@ -50,7 +51,7 @@ RUN wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz && \
     cd cmake-3.14.5 && \
     ./bootstrap --prefix=/usr/local  -- -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_USE_OPENSSL:BOOL=ON && \
     make -j2 install && \
-    cd tmp && \
+    cd /tmp && \
     rm -rf cmake
 
 

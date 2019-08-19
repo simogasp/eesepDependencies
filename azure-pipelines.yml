@@ -5,9 +5,11 @@ resources:
   - repo: self
 
 variables:
-  tag: ubuntu18.04cuda9.2
+  cudaVersion: 8.0
+  ubuntuVersion: 16.04
   dockerId: simogasp  # your Docker ID for Docker Hub
   imageName: eesep-dependencies  # the name of the image you want to publish
+  tag: ubuntu$(ubuntuVersion)cuda$(cudaVersion)
 
 stages:
   - stage: Build
@@ -28,7 +30,7 @@ stages:
         displayName: Build
         inputs:
          command: build
-         #arguments: --build-arg NPROC=2
+         arguments: --build-arg CUDA_TAG=$(cudaVersion) --build-arg OS_TAG=$(ubuntuVersion)
          repository: $(dockerId)/$(imageName)
          tags: |
            $(tag)

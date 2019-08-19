@@ -22,7 +22,6 @@ RUN apt-get clean && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
-        cmake \
         git \
         wget \
         unzip \
@@ -43,6 +42,17 @@ RUN apt-get clean && \
         gfortran
 
 RUN rm -rf /var/lib/apt/lists/*
+
+# Manually install cmake 3.14
+WORKDIR /tmp/cmake
+RUN wget https://cmake.org/files/v3.14/cmake-3.14.5.tar.gz && \\
+    tar zxvf cmake-3.14.5.tar.gz && \\
+    cd cmake-3.14.5 && \\
+    ./bootstrap --prefix=/usr/local  -- -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_USE_OPENSSL:BOOL=ON && \\
+    make -j2 install && \\
+    cd tmp && \\
+    rm -rf cmake
+
 
 WORKDIR /tmp/qt
 ENV QT_VERSION_A=5.12

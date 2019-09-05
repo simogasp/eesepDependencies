@@ -1,0 +1,4 @@
+FROM simogasp/ubuntu16.04cuda8.0
+LABEL maintainer="simone.gasparini@gmail.com"
+
+RUN ls /opt

@@ -5,8 +5,8 @@ resources:
   - repo: self
 
 variables:
-  cudaVersion: 8.0
-  ubuntuVersion: 16.04
+  cudaVersion: 10.2
+  ubuntuVersion: 18.04
   dockerId: simogasp  # your Docker ID for Docker Hub
   imageName: eesep-dependencies  # the name of the image you want to publish
   tag: ubuntu$(ubuntuVersion)cuda$(cudaVersion)
